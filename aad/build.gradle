@@ -1,0 +1,87 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "0.0.1"
+//      multiDexEnabled true   如果方法超过了64k,需要设置这个选项。记得只有比Lollipop高版本的系统可以,4.4以下的版本都有NoClassDefFoundError的异常,需要依赖com.android.support:multidex:1.0.0
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    //rxjava
+    compile "io.reactivex.rxjava2:rxjava:2.1.1"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //gson
+    compile 'com.google.code.gson:gson:2.8.1'
+    //okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //glide
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    //    compile 'com.squareup.picasso:picasso:2.5.2'
+    //event bus
+    compile 'org.greenrobot:eventbus:3.0.0'
+}
+
+
+
+ext {
+    bintrayRepo = 'maven'////bintray上的仓库名，一般为maven
+    bintrayName = 'AAd'//bintray上的项目名
+
+    publishedGroupId = 'com.jex'//JCenter的GroupId
+    artifact = 'aad'//JCenter的ArtifactId
+
+    siteUrl = 'https://github.com/JexLib/JexAAd'
+    gitUrl = 'https://github.com/JexLib/JexAAd.git'
+
+    libraryVersion = '0.0.1'//版本号
+    libraryName = 'AAd'//项目名字，没什么用
+    libraryDescription = 'AAd'//项目描述，没什么用
+
+    //开发者信息
+    developerId = 'jex'
+    developerName = 'justin.h'
+    developerEmail = 'justin.h@live.cn'
+
+    //以上所有信息自行修改，以下不变
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+//apply from:'https://cdn.rawgit.com/Jude95/JCenter/master/install.gradle'
+//apply from:'https://cdn.rawgit.com/Jude95/JCenter/master/bintray.gradle'
+apply from:'install.gradle'
+apply from:'bintray.gradle'
+//apply plugin: 'com.github.dcendents.android-maven'
